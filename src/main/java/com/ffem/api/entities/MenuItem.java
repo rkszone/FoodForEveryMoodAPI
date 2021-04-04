@@ -8,16 +8,17 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
- * Menu items has all required fields of Items Entity
+ * Menu item has all required fields of Item Entity
  */
 @Data
 @Entity
-@Table(name = "MENUITEMS")
+@Table(name = "MENUITEM")
 @EqualsAndHashCode
 @ToString(includeFieldNames = true)
-public class MenuItems {
+public class MenuItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +30,11 @@ public class MenuItems {
     @Column( name = "name",nullable = false)
     private String name;
 
-
-    @ManyToMany(mappedBy = "menuitem")
-    private List<Mood> moodList = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "mood_item",
+            joinColumns = @JoinColumn(name = "menuitem_id"),
+            inverseJoinColumns = @JoinColumn(name = "mood_id"))
+    Set<Mood> moodItems;
 
 }

@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 /**
  * MOOD has all the fields of mood Entity
@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "MOOD")
 @EqualsAndHashCode
-@ToString(includeFieldNames = true, exclude = {"MenuItems"})
+@ToString(includeFieldNames = true, exclude = {"MenuItem"})
 public class Mood {
 
     @Id
@@ -24,11 +24,12 @@ public class Mood {
     @JsonProperty("id")
     private long id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "menuitems_id")
-    private List<MenuItems> menuItems;
-
     @JsonProperty("mood_type")
     @Column( name = "mood_type",nullable = true)
     private String moodType;
+
+    @ManyToMany(mappedBy = "moodItems")
+    Set<MenuItem> items;
+
+
 }
