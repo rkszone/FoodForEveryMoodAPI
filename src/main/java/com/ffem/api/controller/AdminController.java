@@ -8,6 +8,6 @@ public class AdminController {
 
     @GetMapping("/")
     public String home() {
-        return "Hello Docker World";
+        return "Hello World";
     }
 }
